@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/utils/assets.dart';
-import 'package:instagram_clone/screens/login_screen.dart';
+import 'package:instagram_clone/screens/user_onboarding/login_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 
 class SplashScreen extends StatefulWidget {
