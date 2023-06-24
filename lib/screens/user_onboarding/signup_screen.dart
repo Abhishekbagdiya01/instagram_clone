@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/screens/user_onboarding/login_screen.dart';
 import 'package:instagram_clone/utils/assets.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
@@ -23,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController usernameController = TextEditingController();
 
   TextEditingController emailController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
 
@@ -83,11 +85,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: 10,
               ),
-              TextInputField(controller: nameController, hintText: "Full name"),
+              TextInputField(controller: nameController, hintText: "Name"),
               SizedBox(
                 height: 10,
               ),
               TextInputField(controller: emailController, hintText: "Email"),
+              SizedBox(
+                height: 10,
+              ),
+              TextInputField(controller: bioController, hintText: "Bio"),
               SizedBox(
                 height: 10,
               ),
@@ -102,7 +108,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: 20,
               ),
-              CustomButton(voidCallback: () {}, text: "Sign-up"),
+              CustomButton(
+                  voidCallback: () {
+                    AuthMethods().signUp(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        name: nameController.text,
+                        bio: bioController.text,
+                        file: image);
+                  },
+                  text: "Sign-up"),
               TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
