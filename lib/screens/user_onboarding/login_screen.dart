@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/resources/auth_methods.dart';
-import 'package:instagram_clone/screens/app_screens/home_screen.dart';
+import 'package:instagram_clone/responsive/responsive_layout.dart';
+
 import 'package:instagram_clone/screens/user_onboarding/signup_screen.dart';
 import 'package:instagram_clone/utils/assets.dart';
 import 'package:instagram_clone/utils/colors.dart';
@@ -65,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => ResponsiveLayout(),
                             ));
                       }
                       showSnackBar(context, result);

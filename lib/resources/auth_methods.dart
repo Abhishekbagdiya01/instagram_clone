@@ -41,7 +41,7 @@ class AuthMethods {
             following: []);
 
         await FireStoreMethods()
-            .storeUserDataToFirestore(cred: cred, newModel: model);
+            .storeUserDetailsToFirestore(cred: cred, newModel: model);
         return result;
       } else {
         result = "Please enter all the fields";
