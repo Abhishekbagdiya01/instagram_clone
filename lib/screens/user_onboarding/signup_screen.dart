@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,10 +8,12 @@ import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/screens/user_onboarding/login_screen.dart';
 import 'package:instagram_clone/utils/assets.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
+import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/button.dart';
 import 'package:instagram_clone/widgets/text_field.dart';
 
 import '../../utils/colors.dart';
+import '../app_screens/home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});
@@ -28,7 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   TextEditingController passwordController = TextEditingController();
 
-  TextEditingController confirmPassController = TextEditingController();
+  // TextEditingController confirmPassController = TextEditingController();
 
   Uint8List? image;
 
@@ -98,24 +102,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 10,
               ),
               TextInputField(
-                  controller: passwordController, hintText: "Password"),
-              SizedBox(
-                height: 10,
+                controller: passwordController,
+                hintText: "Password",
+                isPass: true,
               ),
-              TextInputField(
-                  controller: confirmPassController,
-                  hintText: "Confirm password"),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // TextInputField(
+              //     controller: confirmPassController,
+              //     hintText: "Confirm password"),
               SizedBox(
                 height: 20,
               ),
               CustomButton(
-                  voidCallback: () {
-                    AuthMethods().signUp(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        name: nameController.text,
-                        bio: bioController.text,
-                        file: image);
+                  voidCallback: () async {
+                    if (image == null ||
+                        emailController.text.trim() == "" ||
+                        passwordController.text.trim() == "" ||
+                        nameController.text.trim() == "" ||
+                        bioController.text.trim() == "") {
+                      showSnackBar(context, "Field must not be empty");
+                    } else {
+                      String result = await AuthMethods().signUp(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          name: nameController.text,
+                          bio: bioController.text,
+                          file: image!);
+
+                      showSnackBar(context, result);
+
+                     
+
+                      log(result);
+                    }
                   },
                   text: "Sign-up"),
               TextButton(

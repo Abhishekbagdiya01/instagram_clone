@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/screens/app_screens/home_screen.dart';
 import 'package:instagram_clone/utils/assets.dart';
 import 'package:instagram_clone/screens/user_onboarding/login_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
@@ -14,6 +16,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  User? uid = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     // TODO: implement initState
@@ -22,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginScreen(),
+            builder: (context) => uid != null ? HomeScreen() : LoginScreen(),
           ));
     });
   }

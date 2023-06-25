@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
+import 'package:instagram_clone/screens/app_screens/home_screen.dart';
 import 'package:instagram_clone/screens/user_onboarding/signup_screen.dart';
 import 'package:instagram_clone/utils/assets.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/utils.dart';
 
 import '../../widgets/button.dart';
 import '../../widgets/text_field.dart';
@@ -34,7 +37,9 @@ class LoginScreen extends StatelessWidget {
                 height: 10,
               ),
               TextInputField(
-                  controller: passwordController, hintText: "Password"),
+                  controller: passwordController,
+                  hintText: "Password",
+                  isPass: true),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -47,7 +52,26 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              CustomButton(voidCallback: () {}, text: "Login"),
+              CustomButton(
+                  voidCallback: () async {
+                    if (emailController.text.trim() == "" ||
+                        passwordController.text.trim() == "") {
+                      showSnackBar(context, "Required field must not be empty");
+                    } else {
+                      String result = await AuthMethods().login(
+                          email: emailController.text,
+                          password: passwordController.text);
+                      if (result == "successfully logged in") {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
+                            ));
+                      }
+                      showSnackBar(context, result);
+                    }
+                  },
+                  text: "Login"),
               TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
