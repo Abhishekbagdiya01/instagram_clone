@@ -13,7 +13,7 @@ import 'package:instagram_clone/widgets/button.dart';
 import 'package:instagram_clone/widgets/text_field.dart';
 
 import '../../utils/colors.dart';
-import '../app_screens/home_screen.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});

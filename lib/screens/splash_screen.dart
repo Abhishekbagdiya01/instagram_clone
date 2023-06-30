@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:instagram_clone/screens/app_screens/home_screen.dart';
+import 'package:instagram_clone/responsive/responsive_layout.dart';
 import 'package:instagram_clone/utils/assets.dart';
 import 'package:instagram_clone/screens/user_onboarding/login_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
@@ -25,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => uid != null ? HomeScreen() : LoginScreen(),
+            builder: (context) =>
+                uid != null ? ResponsiveLayout() : LoginScreen(),
           ));
     });
   }

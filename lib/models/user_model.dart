@@ -18,7 +18,7 @@ class UserModel {
       required this.following});
 
   static fromSnap(DocumentSnapshot documentSnapshot) {
-    var snapshot = documentSnapshot.data as Map<String, dynamic>;
+    var snapshot = documentSnapshot.data() as Map<String, dynamic>;
     return UserModel(
         uid: snapshot['uid'],
         name: snapshot['name'],

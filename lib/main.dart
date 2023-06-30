@@ -18,8 +18,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-          colorScheme: ColorScheme.dark(background: mobileBackgroundColor)),
+      theme: ThemeData.dark(useMaterial3: true).copyWith(
+          colorScheme: ColorScheme.dark(background: mobileBackgroundColor),
+          iconTheme: IconThemeData(color: primaryColor),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: primaryColor,
+          )),
       home: SplashScreen(),
     );
   }

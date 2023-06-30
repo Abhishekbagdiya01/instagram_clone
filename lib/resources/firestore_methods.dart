@@ -17,10 +17,10 @@ class FireStoreMethods {
   }
 
 // Fetching user details from firebase firestore
-  Future getUserDetails() async {
+  Future<UserModel> getUserDetails() async {
     DocumentSnapshot documentSnapshot =
         await _firestore.collection('users').doc(_auth.currentUser!.uid).get();
 
-    UserModel.fromSnap(documentSnapshot);
+    return UserModel.fromSnap(documentSnapshot);
   }
 }
