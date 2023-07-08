@@ -10,3 +10,7 @@ showSnackBar(BuildContext context, String content) {
         style: TextStyle(color: primaryColor),
       )));
 }
+
+TextStyle textStyle17() {
+  return TextStyle(color: primaryColor, fontSize: 17);
+}

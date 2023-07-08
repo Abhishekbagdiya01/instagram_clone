@@ -52,10 +52,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         children: homeScreenItems,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        // backgroundColor: mobileBackgroundColor,
-
-      
-
+        backgroundColor: mobileBackgroundColor,
         currentIndex: _index,
         onTap: navigation,
         items: [

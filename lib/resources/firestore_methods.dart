@@ -4,22 +4,22 @@ import 'package:instagram_clone/models/user_model.dart';
 
 class FireStoreMethods {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  
 
 //  Storing user details to firebase firestore
 
   Future storeUserDetailsToFirestore(
-      {required UserCredential cred, required UserModel newModel}) {
+      {required String uid, required UserModel newModel}) {
     return _firestore
         .collection('users')
-        .doc(cred.user!.uid)
+        .doc(uid)
         .set(newModel.toMap());
   }
 
 // Fetching user details from firebase firestore
-  Future<UserModel> getUserDetails() async {
+  Future<UserModel> getUserDetails(uid) async {
     DocumentSnapshot documentSnapshot =
-        await _firestore.collection('users').doc(_auth.currentUser!.uid).get();
+        await _firestore.collection('users').doc(uid).get();
 
     return UserModel.fromSnap(documentSnapshot);
   }

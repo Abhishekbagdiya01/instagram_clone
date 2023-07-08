@@ -40,8 +40,8 @@ class AuthMethods {
             follower: [],
             following: []);
 
-        await FireStoreMethods()
-            .storeUserDetailsToFirestore(cred: cred, newModel: model);
+        await FireStoreMethods().storeUserDetailsToFirestore(
+            uid: _auth.currentUser!.uid, newModel: model);
         return result;
       } else {
         result = "Please enter all the fields";
