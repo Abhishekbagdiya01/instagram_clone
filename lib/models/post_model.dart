@@ -6,7 +6,7 @@ class PostModel {
   final like;
   final String postId;
   final publishedDate;
-  final String desc;
+  final String? desc;
   final imageUrl;
 
   PostModel(
@@ -15,7 +15,7 @@ class PostModel {
       required this.like,
       required this.postId,
       required this.publishedDate,
-      required this.desc,
+      this.desc,
       required this.imageUrl});
 
   static fromSnap(DocumentSnapshot snapshot) {
@@ -26,7 +26,7 @@ class PostModel {
         like: snap["like"],
         postId: snap['postId'],
         publishedDate: snap["publishedDate"],
-        desc: snap["desc"],
+        desc: snap["desc"] ?? "",
         imageUrl: snap["imageUrl"]);
   }
 

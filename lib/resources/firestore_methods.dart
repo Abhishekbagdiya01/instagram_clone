@@ -52,4 +52,30 @@ class FireStoreMethods {
 
     return res;
   }
+
+  // Future<List<PostModel>> getUserPost(uid) async {
+  //   List<PostModel> arrList = [];
+
+  //   arrList = await _firestore
+  //       .collection("post")
+  //       .where("uid", isEqualTo: uid)
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) {
+  //     querySnapshot.docs.forEach((doc) {
+  //       arrList.add(PostModel.fromSnap(doc));
+  //     });
+  //     return arrList;
+  //   });
+
+  //   print("ArrList Length" + arrList.toString());
+
+  //   return arrList;
+  // }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getUserPost(uid) async {
+    var postArr =
+        await _firestore.collection("post").where("uid", isEqualTo: uid).get();
+
+    return postArr;
+  }
 }

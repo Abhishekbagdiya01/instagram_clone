@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/utils/assets.dart';
 import 'package:instagram_clone/utils/colors.dart';
 
+import '../widgets/post_card.dart';
+
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
 
@@ -11,6 +13,7 @@ class FeedScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: mobileBackgroundColor,
         title: SvgPicture.asset(
           igText,
@@ -27,8 +30,8 @@ class FeedScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Text("Feed"),
+      body: ListView(
+        children: [PostCard(), PostCard(), PostCard(), PostCard()],
       ),
     );
   }
