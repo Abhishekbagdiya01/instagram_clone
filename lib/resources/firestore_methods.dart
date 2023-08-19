@@ -78,4 +78,26 @@ class FireStoreMethods {
 
     return postArr;
   }
+
+  Future<UserModel> getUserByUid(uid) async {
+    QuerySnapshot querySnapshot =
+        await _firestore.collection("users").where("uid", isEqualTo: uid).get();
+
+    final data = querySnapshot.docs.first;
+
+    return UserModel.fromSnap(data);
+  }
+
+  Future<List<UserModel>> searchUserbyUsername(String username) async {
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("users")
+        .where("name", isEqualTo: username)
+        .get();
+    List<UserModel> data = [];
+    querySnapshot.docs.forEach((docs) {
+      data.add(UserModel.fromSnap(docs));
+    });
+    return data;
+    // return UserModel.fromSnap(data);
+  }
 }

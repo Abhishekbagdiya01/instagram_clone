@@ -1,11 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/models/user_model.dart';
+import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/utils/colors.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   PostCard({
+    required this.snapshot,
     super.key,
   });
+  final snapshot;
+
+  @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
   TextEditingController commentController = TextEditingController();
+
+  UserModel? userDetail;
+
+  fetchUserDetail() async {
+    userDetail = await FireStoreMethods().getUserByUid(widget.snapshot['uid']);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchUserDetail();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,19 +39,23 @@ class PostCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.cyan,
-              ),
+              leading: userDetail == null
+                  ? CircleAvatar(
+                      backgroundColor: Colors.cyan,
+                    )
+                  : CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(userDetail!.imageUrl.toString()),
+                    ),
               title: Text(
-                "abhishek_bagdiya",
+                widget.snapshot['username'],
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
               trailing: IconButton(
                   onPressed: () {}, icon: Icon(Icons.more_horiz_outlined))),
-          Image.network(
-              "https://firebasestorage.googleapis.com/v0/b/instagram-1cbd5.appspot.com/o/posts%2FQ9uFTxXf08MtRDLM4bfXxW632cB2%2F50689600-1e5c-11ee-8335-5fa1485974b5?alt=media&token=d033653c-b4f4-47b8-9764-6bea113b6a39"),
+          Image.network(widget.snapshot['imageUrl']),
           Row(
             children: [
               IconButton(
@@ -52,7 +82,7 @@ class PostCard extends StatelessWidget {
                   child: IconButton(
                       onPressed: () {},
                       icon: Icon(
-                        Icons.bookmark,
+                        Icons.bookmark_border,
                       )),
                 ),
               ),
@@ -91,7 +121,14 @@ class PostCard extends StatelessWidget {
     );
   }
 
-  showCommentsSheet(BuildContext context) {
+  Future<String> currentUserImg() async {
+    UserModel userDetail = await FireStoreMethods()
+        .getUserByUid(FirebaseAuth.instance.currentUser!.uid);
+    return userDetail.imageUrl!;
+  }
+
+  showCommentsSheet(BuildContext context) async {
+    String imageUrl = await currentUserImg();
     showBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -118,7 +155,7 @@ class PostCard extends StatelessWidget {
               child: Expanded(
                   child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: Colors.cyan,
+                  backgroundImage: NetworkImage(imageUrl),
                 ),
                 title: TextField(
                   controller: commentController,
